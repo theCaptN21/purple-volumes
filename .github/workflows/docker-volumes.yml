@@ -27,18 +27,18 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/volume-test:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/volume-test1:latest
 
       - name: Create and run a container with volume
         run: |
           docker volume create myvolume
-          docker run -d -v myvolume:/data --name volume-container ${{ secrets.DOCKER_HUB_USERNAME }}/volume-test:latest
+          docker run -d -v myvolume:/data --name volume-container ${{ secrets.DOCKER_HUB_USERNAME }}/volume-test1:latest
 
       - name: Verify that the container is running
         run: docker ps --filter "name=volume-container"
 
       - name: Verify volume contents
-        run: docker exec volume-container cat /data/volume_test.txt
+        run: docker exec volume-container cat /data/volume_test1.txt
 
       - name: Inspect Docker Volume
         run: docker volume inspect myvolume
